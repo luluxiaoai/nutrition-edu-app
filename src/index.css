@@ -1,0 +1,125 @@
+animate-fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+        .cursor-grab { cursor: grab; }
+        .active\\:cursor-grabbing:active { cursor: grabbing; }
+
+        /* New Spin Wheel Styles */
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+        }
+        .wheel {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 8px solid #d1d5db; /* silver-300 */
+            background-color: #9ca3af; /* silver-400 */
+            transition: transform 5s cubic-bezier(0.25, 1, 0.5, 1);
+            box-shadow: inset 0 0 0 5px #fff;
+            overflow: hidden; /* FIX: This contains the text elements */
+        }
+        .wheel-pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 30px solid #6b7280; /* silver-600 */
+            z-index: 20;
+            filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.2));
+        }
+        .wheel-pointer::after {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -12px;
+            width: 24px;
+            height: 24px;
+            background: #d1d5db;
+            border-radius: 50%;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+        }
+        .wheel-light {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px #fff, 0 0 10px #fef08a;
+            top: 50%;
+            left: 50%;
+            transform-origin: 0 0;
+            margin-top: -6px;
+            margin-left: -6px;
+            animation: light-pulse 1.5s infinite;
+        }
+        .wheel-light:nth-child(odd) {
+            animation-delay: 0.75s;
+        }
+        @keyframes light-pulse {
+            0%, 100% { transform: scale(1) rotate(var(--angle)); }
+            50% { transform: scale(0.7) rotate(var(--angle)); }
+        }
+        /* JS will set --angle */
+        .wheel-light {
+            --angle: 0deg;
+            transform: rotate(var(--angle)) translateY(-156px);
+        }
+        .segment-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-origin: center;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .segment-text > span {
+            padding-top: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .spin-button {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5rem;
+            border: 6px solid #bfdbfe;
+            box-shadow: 0 0 0 4px #3b82f6, 0 5px 10px rgba(0,0,0,0.4);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.1s ease;
+        }
+        .spin-button:disabled {
+            background: #9ca3af;
+            box-shadow: 0 0 0 4px #9ca3af, 0 2px 5px rgba(0,0,0,0.4);
+            cursor: not-allowed;
+            transform: translateY(3px);
+        }
+        .spin-button:not(:disabled):active {
+            transform: translateY(3px);
+            box-shadow: 0 0 0 4px #3b82f6, 0 2px 5px rgba(0,0,0,0.4);
+        }
+        
